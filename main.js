@@ -43,16 +43,9 @@ fetch(corsProxy + url)
     document.querySelector("progress").setAttribute("max", countries.length);
 
     const displayData = () => {
-      const sortedCountries = countries.sort(function(a, b) {
-        const keyA = new Date(a.countryName);
-        const keyB = new Date(b.countryName);
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-      });
       const json = {
         lastUpdated: new Date().getTime(),
-        nationalSocieties: sortedCountries
+        nationalSocieties: countries.sort((a, b) => a.countryName < b.countryName ? -1 : a.countryName > b.countryName ? 1 : 0)
       }
       document.querySelector("textarea").value = JSON.stringify(json, null, 2);
       console.log(json);
